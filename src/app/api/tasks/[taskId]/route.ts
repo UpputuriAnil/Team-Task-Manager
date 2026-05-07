@@ -3,7 +3,7 @@ import { authOptions } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { NextResponse } from "next/server";
 
-export async function PATCH(req: Request, { params }: { params: { taskId: string } }) {
+export async function PATCH(req: Request, { params }: { params: Promise<{ taskId: string }> }) {
   try {
     const session = await getServerSession(authOptions);
     
@@ -17,7 +17,7 @@ export async function PATCH(req: Request, { params }: { params: { taskId: string
       return new NextResponse("Status is required", { status: 400 });
     }
 
-    const taskId = params.taskId;
+    const { taskId } = await params;
 
     // Check if task exists and if user is allowed to update it
     const task = await prisma.task.findUnique({
@@ -43,7 +43,7 @@ export async function PATCH(req: Request, { params }: { params: { taskId: string
   }
 }
 
-export async function DELETE(req: Request, { params }: { params: { taskId: string } }) {
+export async function DELETE(req: Request, { params }: { params: Promise<{ taskId: string }> }) {
   try {
     const session = await getServerSession(authOptions);
     
@@ -51,7 +51,7 @@ export async function DELETE(req: Request, { params }: { params: { taskId: strin
       return new NextResponse("Unauthorized", { status: 401 });
     }
 
-    const taskId = params.taskId;
+    const { taskId } = await params;
 
     await prisma.task.delete({
       where: { id: taskId },
