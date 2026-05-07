@@ -1,10 +1,15 @@
 import { withAuth } from "next-auth/middleware";
 
-export default withAuth({
-  pages: {
-    signIn: "/login",
+export default withAuth(
+  function middleware(req) {
+    // Middleware logic here if needed
   },
-});
+  {
+    pages: {
+      signIn: "/login",
+    },
+  }
+);
 
 export const config = {
   matcher: ["/dashboard/:path*", "/projects/:path*", "/tasks/:path*"],
