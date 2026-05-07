@@ -85,7 +85,7 @@ team-task-manager/
 - **Glass Morphism**: Modern UI design elements
 - **Interactive Components**: Smooth animations and transitions
 
-## �🚀 Features
+## � Features
 - **Authentication**: Email/Password and Google OAuth
 - **Roles**: Admin (Create projects/tasks) and Member (View assigned projects, update task status)
 - **Dashboard**: Track To Do, In Progress, and Completed tasks
@@ -116,10 +116,17 @@ team-task-manager/
    ```
 
 3. **Database Setup**
-   Ensure you have a PostgreSQL database running, then apply the schema:
+   The database is automatically created when you run the setup command. No separate database installation needed.
+   
+   **For Fresh Setup:**
    ```bash
    npx prisma db push
    ```
+   
+   **What Happens:**
+   - Creates `prisma/dev.db` SQLite database file
+   - Sets up all required tables (Users, Projects, Tasks, Sessions)
+   - Database is ready to use immediately
 
 4. **Run the App**
    ```bash
@@ -128,4 +135,59 @@ team-task-manager/
 
 > **Note on First User**: The first user to register is automatically granted the `ADMIN` role. Subsequent users will be `MEMBER`s.
 
+---
 
+## 🚀 For Others - How to Use This Project
+
+### 📥 Clone the Repository
+```bash
+git clone https://github.com/UpputuriAnil/Team-Task-Manager.git
+cd team-task-manager
+```
+
+### 🔧 Setup Instructions
+1. **Install Dependencies**
+   ```bash
+   npm install
+   ```
+
+2. **Environment Variables**
+   Create a `.env` file in root directory:
+   ```env
+   DATABASE_URL="file:./dev.db"
+   NEXTAUTH_SECRET="your-super-secret-key"
+   NEXTAUTH_URL="http://localhost:3000"
+   
+   # For Google Auth (Optional)
+   GOOGLE_CLIENT_ID="your-google-client-id"
+   GOOGLE_CLIENT_SECRET="your-google-client-secret"
+   ```
+
+3. **Database Setup**
+   ```bash
+   npx prisma db push
+   npx prisma generate
+   ```
+
+4. **Run Application**
+   ```bash
+   npm run dev
+   ```
+
+### 🎯 What You Get
+- ✅ **Complete Team Task Manager** with all features
+- ✅ **Admin Dashboard** - Create projects, assign tasks, manage team
+- ✅ **Member Dashboard** - View assigned tasks, mark as done
+- ✅ **Real-time Updates** - Live task status synchronization
+- ✅ **Role-based Access** - Admin and Member permissions
+- ✅ **Kanban Board** - Visual task management
+- ✅ **Authentication** - Email/Password and Google OAuth
+
+### 👥 User Roles
+- **👨‍💼 Admin**: Full system control, create projects/tasks, manage users
+- **👤 Member**: View assigned tasks, update status, mark as done
+
+### 🌐 Live Demo
+**Deployed Application:** [🔗 Team Task Manager - Live Demo](https://your-app-name.up.railway.app)
+
+> **Note**: This is a full-featured team task management system ready for production use!
