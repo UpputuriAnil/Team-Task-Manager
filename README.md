@@ -1,36 +1,131 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Team Task Manager
 
-## Getting Started
+A full-stack Team Task Manager application built with Next.js, Prisma, NextAuth, and SQLite. Features role-based access control (Admin/Member), project and task management, and a dynamic dashboard.
 
-First, run the development server:
+## � Project Contents
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+### 🏗️ **Core Application Structure**
+```
+team-task-manager/
+├── src/
+│   ├── app/                    # Next.js App Router pages
+│   │   ├── (dashboard)/       # Protected dashboard routes
+│   │   │   ├── dashboard/     # Main dashboard with statistics
+│   │   │   ├── tasks/         # Task management Kanban board
+│   │   │   └── projects/      # Project management
+│   │   ├── api/               # API routes
+│   │   │   ├── auth/          # NextAuth authentication
+│   │   │   ├── projects/      # Project CRUD operations
+│   │   │   ├── tasks/         # Task CRUD operations
+│   │   │   ├── users/         # User management
+│   │   │   └── register/      # User registration
+│   │   ├── login/             # Login page
+│   │   ├── register/          # Registration page
+│   │   └── page.tsx           # Landing page
+│   ├── components/            # Reusable React components
+│   │   └── Providers.tsx      # NextAuth providers
+│   ├── lib/                   # Utility libraries
+│   │   ├── auth.ts            # NextAuth configuration
+│   │   └── prisma.ts          # Prisma client
+│   ├── middleware.ts          # Auth middleware
+│   ├── types/                 # TypeScript type definitions
+│   │   └── next-auth.d.ts     # NextAuth types
+│   ├── globals.css            # Global styles
+│   ├── layout.tsx             # Root layout
+│   └── page.tsx               # Home page
+├── prisma/
+│   ├── schema.prisma          # Database schema
+│   ├── migrations/            # Database migrations
+│   └── dev.db                 # SQLite database
+├── public/                    # Static assets
+├── .env                       # Environment variables (excluded)
+├── .gitignore                 # Git ignore file
+├── package.json               # Dependencies and scripts
+├── next.config.ts             # Next.js configuration
+└── README.md                  # This file
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 🎯 **Key Features & Components**
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+#### **🔐 Authentication System**
+- **Email/Password Login**: Traditional authentication
+- **Google OAuth**: Social login integration
+- **Role-based Access**: Admin vs Member permissions
+- **Session Management**: Secure user sessions
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+#### **👥 User Management**
+- **Admin Role**: Full system access, create projects/tasks
+- **Member Role**: View assigned tasks, update status only
+- **User Registration**: New user signup with role assignment
+- **Profile Management**: User information and settings
 
-## Learn More
+#### **🏗️ Project Management**
+- **Project Creation**: Admin can create new projects
+- **Project Deadlines**: Set and track project completion dates
+- **Project Statistics**: Task counts and progress tracking
+- **Overdue Detection**: Automatic overdue project warnings
 
-To learn more about Next.js, take a look at the following resources:
+#### **📋 Task Management**
+- **Task Creation**: Admin creates tasks with assignments
+- **Task Assignment**: Assign tasks to specific team members
+- **Status Tracking**: TODO → IN_PROGRESS → DONE workflow
+- **Kanban Board**: Visual task organization by status
+- **Member Updates**: Members can mark tasks as done
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+#### **📊 Dashboard & Analytics**
+- **Admin Dashboard**: Complete system overview
+- **Member Dashboard**: Personal task statistics
+- **Real-time Updates**: Live task status changes
+- **Progress Tracking**: Project completion percentages
+- **Overdue Alerts**: Task and project deadline warnings
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+#### **🎨 User Interface**
+- **Responsive Design**: Works on all device sizes
+- **Dark Theme**: Modern dark color scheme
+- **Glass Morphism**: Modern UI design elements
+- **Interactive Components**: Smooth animations and transitions
 
-## Deploy on Vercel
+## �🚀 Features
+- **Authentication**: Email/Password and Google OAuth
+- **Roles**: Admin (Create projects/tasks) and Member (View assigned projects, update task status)
+- **Dashboard**: Track To Do, In Progress, and Completed tasks
+- **Project & Task Management**: Kanban-style status tracking
+- **Real-time Updates**: Live task status synchronization
+- **Deadline Tracking**: Project and task deadline management
+- **Team Collaboration**: Role-based task assignment and updates
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## ⚙️ Local Setup
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1. **Install Dependencies**
+   ```bash
+   npm install
+   ```
+
+2. **Environment Variables**
+   Create a `.env` file in the root directory:
+   ```env
+   NEXTAUTH_URL="http://localhost:3000"
+   NEXTAUTH_SECRET="your-super-secret-key"
+
+   # For Local PostgreSQL
+   DATABASE_URL="postgresql://user:password@localhost:5432/team-tasker"
+
+   # For Google Auth
+   GOOGLE_CLIENT_ID="your-google-client-id"
+   GOOGLE_CLIENT_SECRET="your-google-client-secret"
+   ```
+
+3. **Database Setup**
+   Ensure you have a PostgreSQL database running, then apply the schema:
+   ```bash
+   npx prisma db push
+   ```
+
+4. **Run the App**
+   ```bash
+   npm run dev
+   ```
+
+> **Note on First User**: The first user to register is automatically granted the `ADMIN` role. Subsequent users will be `MEMBER`s.
+
+
